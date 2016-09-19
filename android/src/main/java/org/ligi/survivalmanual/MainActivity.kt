@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener { item -> processMenuId(item.itemId) }
 
-        processMenuId(R.id.menu_intro)
+        //processMenuId(R.id.menu_intro)
 
         SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
     }
