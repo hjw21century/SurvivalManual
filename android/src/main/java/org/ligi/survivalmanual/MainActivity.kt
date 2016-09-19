@@ -1,5 +1,6 @@
 package org.ligi.survivalmanual
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
@@ -13,6 +14,7 @@ import android.view.MenuItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView
+import net.steamcrafted.loadtoast.LoadToast
 import org.ligi.snackengage.SnackEngage
 import org.ligi.snackengage.snacks.DefaultRateSnack
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val webView by lazy { findViewById(R.id.webView) as WebView }
     private val drawerLayout by lazy { findViewById(R.id.drawer_layout) as DrawerLayout }
     private val drawerToggle by lazy { ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) }
+    private val loadToast by lazy { LoadToast(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                loadToast.success()
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                loadToast.show()
+            }
         })
         val navigationView = findViewById(R.id.navigationView) as NavigationView
 
@@ -77,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     private fun processMenuId(menuId: Int): Boolean {
         val urlByMenuId = getURLByMenuId(menuId)
         if (urlByMenuId != null) {
-            //webView.loadUrl(urlByMenuId)
+            webView.loadUrl(urlByMenuId)
             supportActionBar?.setSubtitle(NavigationDefinitions.getTitleResById(menuId))
             return true
         }
