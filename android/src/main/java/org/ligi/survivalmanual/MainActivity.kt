@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun processMenuId(menuId: Int): Boolean {
         val urlByMenuId = getURLByMenuId(menuId)
         if (urlByMenuId != null) {
-            webView.loadUrl(urlByMenuId)
+            //webView.loadUrl(urlByMenuId)
             supportActionBar?.setSubtitle(NavigationDefinitions.getTitleResById(menuId))
             return true
         }
