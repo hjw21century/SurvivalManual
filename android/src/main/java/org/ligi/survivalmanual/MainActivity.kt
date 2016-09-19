@@ -42,9 +42,12 @@ class MainActivity : AppCompatActivity() {
         })
         val navigationView = findViewById(R.id.navigationView) as NavigationView
 
-        navigationView.setNavigationItemSelectedListener { item -> processMenuId(item.itemId) }
+        navigationView.setNavigationItemSelectedListener { item ->
+            drawerLayout.closeDrawers()
+            processMenuId(item.itemId)
+        }
 
-        //processMenuId(R.id.menu_intro)
+        processMenuId(R.id.menu_intro)
 
         SnackEngage.from(this).withSnack(DefaultRateSnack()).build().engageWhenAppropriate()
     }
@@ -75,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         val urlByMenuId = getURLByMenuId(menuId)
         if (urlByMenuId != null) {
             webView.loadUrl(urlByMenuId)
-            drawerLayout.closeDrawers()
             supportActionBar?.setSubtitle(NavigationDefinitions.getTitleResById(menuId))
             return true
         }
