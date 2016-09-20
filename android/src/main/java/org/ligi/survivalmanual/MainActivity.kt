@@ -49,13 +49,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                loadToast.success()
                 isLoading = false
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
-                loadToast.show()
             }
         })
         val navigationView = findViewById(R.id.navigationView) as NavigationView
