@@ -1,5 +1,6 @@
 package org.ligi.survivalmanual;
 
+import android.os.SystemClock;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.web.model.Atoms;
 import android.support.test.rule.ActivityTestRule;
@@ -14,6 +15,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.ligi.survivalmanual.ScreenShotTaker.takeScreenShot;
 
@@ -54,14 +56,13 @@ public class TheSurvivalActivity {
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
             onView(withId(R.id.navigationView)).perform(navigateTo(integer));
             onWebView(withId(R.id.webView)).check(webMatches(Atoms.getCurrentUrl(), containsString("htm")));
+            SystemClock.sleep(100);
 
-            /*
             final MainActivity activity = activityTestRule.getActivity();
             final CharSequence subtitle = activity.getSupportActionBar().getSubtitle();
             assertThat(subtitle).isEqualTo(activity.getString(NavigationDefinitions.INSTANCE.getTitleResById(integer)));
 
             takeScreenShot(activity, "topic_" + subtitle.toString().replace(" ", "_").replace("/", "_"));
-            */
         }
     }
 
