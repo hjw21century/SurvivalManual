@@ -2,6 +2,7 @@ package org.ligi.survivalmanual
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -20,10 +21,13 @@ import org.ligi.snackengage.snacks.DefaultRateSnack
 
 class MainActivity : AppCompatActivity() {
 
-    private val webView by lazy { findViewById(R.id.webView) as WebView }
+    var isLoading: Boolean = true;
+
+    @VisibleForTesting
+    val webView by lazy { findViewById(R.id.webView) as WebView }
     private val drawerLayout by lazy { findViewById(R.id.drawer_layout) as DrawerLayout }
     private val drawerToggle by lazy { ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) }
-    private val loadToast by lazy { LoadToast(this) }
+    val loadToast by lazy { LoadToast(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout.addDrawerListener(drawerToggle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         webView.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 loadToast.success()
+                isLoading = false
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
