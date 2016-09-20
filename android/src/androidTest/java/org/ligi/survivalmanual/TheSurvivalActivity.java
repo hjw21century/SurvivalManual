@@ -52,9 +52,10 @@ public class TheSurvivalActivity {
         waitForInitialWebView();
         for (final Integer integer : NavigationDefinitions.INSTANCE.getMenu2htmlMap().keySet()) {
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-            onWebView(withId(R.id.webView)).check(webMatches(Atoms.getCurrentUrl(), containsString("htm")));
             onView(withId(R.id.navigationView)).perform(navigateTo(integer));
-/*
+            onWebView(withId(R.id.webView)).check(webMatches(Atoms.getCurrentUrl(), containsString("htm")));
+
+            /*
             final MainActivity activity = activityTestRule.getActivity();
             final CharSequence subtitle = activity.getSupportActionBar().getSubtitle();
             assertThat(subtitle).isEqualTo(activity.getString(NavigationDefinitions.INSTANCE.getTitleResById(integer)));
