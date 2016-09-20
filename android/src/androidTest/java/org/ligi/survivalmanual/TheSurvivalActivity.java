@@ -53,6 +53,7 @@ public class TheSurvivalActivity {
     public void testWeCanOpenAllTopics() {
         waitForInitialWebView();
         for (final Integer integer : NavigationDefinitions.INSTANCE.getMenu2htmlMap().keySet()) {
+            SystemClock.sleep(1000);
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
             onView(withId(R.id.navigationView)).perform(navigateTo(integer));
             onWebView(withId(R.id.webView)).check(webMatches(Atoms.getCurrentUrl(), containsString("htm")));
