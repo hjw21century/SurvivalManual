@@ -57,7 +57,7 @@ public class TheSurvivalActivity {
             onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
             onView(withId(R.id.navigationView)).perform(navigateTo(integer));
             onWebView(withId(R.id.webView)).check(webMatches(Atoms.getCurrentUrl(), containsString("htm")));
-            SystemClock.sleep(100);
+            SystemClock.sleep(2000);
 
             final MainActivity activity = activityTestRule.getActivity();
             final CharSequence subtitle = activity.getSupportActionBar().getSubtitle();
